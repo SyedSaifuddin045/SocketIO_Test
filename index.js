@@ -37,6 +37,7 @@ io.on('connection', (socket) => {
         var profileImageUrl = body.profileImageUrl;
         var playerStatus = body.playerStatus;
         var coin = body.coin
+        console.log("playercoin",coin);
         const all = await carrom.find()
         var roomId = " "
         all.every(element => {
@@ -294,6 +295,7 @@ io.on('connection', (socket) => {
                     } else if (room.blackCount == 6) {
                         io.to(roomId).emit("playerWon", { playerId: room.players[1].playerId })
                     } else {
+                        console.log("emitting player turn");
                         io.to(roomId).emit("playerTurn", { playerId: playerId })
                         room.currentStriker = playerId
                         room = await room.save()
@@ -327,6 +329,7 @@ io.on('connection', (socket) => {
                         io.to(roomId).emit("playerWon", { playerId: room.players[0].playerId })
                     }
                     else {
+                        console.log("emitting player turn");
                         io.to(roomId).emit("playerTurn", { playerId: playerId })
                         room.currentStriker = playerId
                         room = await room.save()
